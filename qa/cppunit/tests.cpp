@@ -27,7 +27,7 @@ protected:
 void TestParser::testShouldGetName()
 {
     std::string line("CPE_NAME=\"cpe:/o:fedoraproject:fedora:17\"");
-    CPPUNIT_ASSERT(GetName(line) == "CPE_NAME");
+    CPPUNIT_ASSERT_EQUAL(std::string("CPE_NAME"), GetName(line));
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestParser);

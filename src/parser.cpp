@@ -4,6 +4,10 @@
 
 std::string GetName(std::string line)
 {
+    size_t endchar = line.find_first_of("=");
+    if (endchar != std::string::npos)
+        return line.substr(0, endchar);
+
     return std::string("");
 }
 
