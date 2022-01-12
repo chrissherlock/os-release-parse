@@ -18,16 +18,24 @@ class TestParser : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestParser);
     CPPUNIT_TEST(testShouldGetName);
+    CPPUNIT_TEST(testShouldGetValueInQuotes);
     CPPUNIT_TEST_SUITE_END();
 
 protected:
     void testShouldGetName();
+    void testShouldGetValueInQuotes();
 };
 
 void TestParser::testShouldGetName()
 {
     std::string line("CPE_NAME=\"cpe:/o:fedoraproject:fedora:17\"");
     CPPUNIT_ASSERT_EQUAL(std::string("CPE_NAME"), GetName(line));
+}
+
+void TestParser::testShouldGetValueInQuotes()
+{
+    std::string line("CPE_NAME=\"cpe:/o:fedoraproject:fedora:17\"");
+    CPPUNIT_ASSERT_EQUAL(std::string("cpe:/o:fedoraproject:fedora:17"), GetValue(line));
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestParser);
