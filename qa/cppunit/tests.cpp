@@ -23,6 +23,7 @@ class TestParser : public CppUnit::TestFixture
     CPPUNIT_TEST(testShouldGetValueWithNoQuotes);
     CPPUNIT_TEST(testShouldGetLines);
     CPPUNIT_TEST(testShouldGetKeyValue);
+    CPPUNIT_TEST(testShouldGetKeyValues);
     CPPUNIT_TEST_SUITE_END();
 
 protected:
@@ -30,6 +31,7 @@ protected:
     void testShouldGetValueInQuotes();
     void testShouldGetValueWithNoQuotes();
     void testShouldGetKeyValue();
+    void testShouldGetKeyValues();
     void testShouldGetLines();
 };
 
@@ -69,6 +71,20 @@ void TestParser::testShouldGetKeyValue()
 
     CPPUNIT_ASSERT_EQUAL(std::string("CPE_NAME"), key);
     CPPUNIT_ASSERT_EQUAL(std::string("cpe:/o:fedoraproject:fedora:17"), value);
+}
+
+void TestParser::testShouldGetKeyValues()
+{
+    std::string inputlines("NAME=Fedora\nVERSION=\"17 (Beefy Miracle)\"");
+    std::istringstream istm(inputlines);
+
+    std::vector<std::string> lines = GetLines(istm);
+    auto records = GetKeyValues(lines);
+
+    CPPUNIT_ASSERT_EQUAL(std::string("NAME"), records[0].first);
+    CPPUNIT_ASSERT_EQUAL(std::string("Fedora"), records[0].second);
+    CPPUNIT_ASSERT_EQUAL(std::string("VERSION"), records[1].first);
+    CPPUNIT_ASSERT_EQUAL(std::string("17 (Beefy Miracle)"), records[1].second);
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestParser);
