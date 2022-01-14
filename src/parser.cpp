@@ -3,6 +3,7 @@
 #include <istream>
 #include <string>
 #include <vector>
+#include <tuple>
 
 std::string GetName(std::string line)
 {
@@ -39,6 +40,14 @@ std::vector<std::string> GetLines(std::istream& in)
     }
 
     return lines;
+}
+
+std::tuple<std::string, std::string> GetKeyValue(std::string line)
+{
+    std::string key = GetName(line);
+    std::string value = GetValue(line);
+
+    return std::make_tuple(key, value);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab cinoptions=b1,g0,N-s cinkeys+=0=break: */
