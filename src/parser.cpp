@@ -1,6 +1,8 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; fill-column: 100 -*- */
 
+#include <istream>
 #include <string>
+#include <vector>
 
 std::string GetName(std::string line)
 {
@@ -25,6 +27,18 @@ std::string GetValue(std::string line)
         value = value.substr(1, value.length() - 2);
 
     return value;
+}
+
+std::vector<std::string> GetLines(std::istream& in)
+{
+    std::vector<std::string> lines;
+
+    for (std::string line; std::getline(in, line);)
+    {
+        lines.push_back(line);
+    }
+
+    return lines;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab cinoptions=b1,g0,N-s cinkeys+=0=break: */

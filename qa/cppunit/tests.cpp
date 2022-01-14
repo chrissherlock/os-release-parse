@@ -1,5 +1,6 @@
 /* -*- Mode: C++; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; fill-column: 100 -*- */
 
+#include <sstream>
 #include <string>
 
 #include <cppunit/BriefTestProgressListener.h>
@@ -20,12 +21,14 @@ class TestParser : public CppUnit::TestFixture
     CPPUNIT_TEST(testShouldGetName);
     CPPUNIT_TEST(testShouldGetValueInQuotes);
     CPPUNIT_TEST(testShouldGetValueWithNoQuotes);
+    CPPUNIT_TEST(testShouldGetLines);
     CPPUNIT_TEST_SUITE_END();
 
 protected:
     void testShouldGetName();
     void testShouldGetValueInQuotes();
     void testShouldGetValueWithNoQuotes();
+    void testShouldGetLines();
 };
 
 void TestParser::testShouldGetName()
@@ -44,6 +47,17 @@ void TestParser::testShouldGetValueWithNoQuotes()
 {
     std::string line("CPE_NAME=cpe:/o:fedoraproject:fedora:17");
     CPPUNIT_ASSERT_EQUAL(std::string("cpe:/o:fedoraproject:fedora:17"), GetValue(line));
+}
+
+void TestParser::testShouldGetLines()
+{
+    std::string inputlines("NAME=Fedora\nVERSION=\"17 (Beefy Miracle)\"");
+    std::istringstream istm(inputlines);
+
+    std::vector<std::string> lines = GetLines(istm);
+
+    CPPUNIT_ASSERT_EQUAL(std::string("NAME=Fedora"), lines[0]);
+    CPPUNIT_ASSERT_EQUAL(std::string("VERSION=\"17 (Beefy Miracle)\""), lines[1]);
 }
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestParser);
