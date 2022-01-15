@@ -6,7 +6,7 @@
 #include <utility>
 #include <vector>
 
-std::string GetName(std::string line)
+std::string GetName(std::string const& line)
 {
     size_t endchar = line.find_first_of("=");
 
@@ -16,7 +16,7 @@ std::string GetName(std::string line)
     return std::string("");
 }
 
-std::string GetValue(std::string line)
+std::string GetValue(std::string const& line)
 {
     size_t endchar = line.find_first_of("=");
 
@@ -44,7 +44,7 @@ std::vector<std::string> GetLines(std::istream& in)
     return lines;
 }
 
-std::tuple<std::string, std::string> GetKeyValue(std::string line)
+std::tuple<std::string, std::string> GetKeyValue(std::string const& line)
 {
     std::string key = GetName(line);
     std::string value = GetValue(line);

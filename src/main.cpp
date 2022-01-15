@@ -8,7 +8,7 @@
 
 namespace fs = std::filesystem;
 
-static std::string getArgument(int argc, char** argv)
+static std::string getFilename(int argc, char** argv)
 {
     if (argc < 2)
     {
@@ -30,10 +30,9 @@ static std::string getArgument(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-    std::string filename(getArgument(argc, argv));
-    std::ifstream stm(filename);
-
+    std::ifstream stm(getFilename(argc, argv));
     auto records = GetKeyValues(GetLines(stm));
+
     std::for_each(records.cbegin(), records.cend(),
                   [](std::pair<std::string, std::string> const& keyvalue)
                   { std::cout << keyvalue.first << ": " << keyvalue.second << std::endl; });
