@@ -12,7 +12,7 @@ CPPUNITLINKFLAGS = -lcppunit
 CPPUNITTESTEXECUTABLE = runtests
 
 build: $(CXXFILES)
-	$(CXX) -o $(EXECUTABLE) $(CXXFILES) $(DEBUG)
+	$(CXX) -o $(EXECUTABLE) $(CXXFILES) $(DEBUG) $(INCLUDES)
 
 test: qa/cppunit/tests.cpp $(OBJ)
 	$(CXX) -o $(CPPUNITTESTEXECUTABLE) qa/cppunit/tests.cpp $(CPPUNITOBJ) $(CPPUNITLINKFLAGS) $(INCLUDES)
